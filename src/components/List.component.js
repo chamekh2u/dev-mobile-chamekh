@@ -28,8 +28,6 @@ const ListTest = ({ data, isFavorisList, dispatch, favorisList }) => {
     console.log('https://image.tmdb.org/t/p/w50' + path)
     return (
       <Avatar
-
-
         source={{ uri: 'https://image.tmdb.org/t/p/w500' + path }}
       />
     );
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    favorisList: state.platFavoris
+    favorisList: state.filmFavoris
   }
 }
 

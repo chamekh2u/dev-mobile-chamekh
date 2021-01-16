@@ -1,4 +1,4 @@
-const initialState = { platFavoris: [] }
+const initialState = { filmFavoris: [] }
 
 function reducer(state = initialState, action) {
   let nextState
@@ -6,16 +6,16 @@ function reducer(state = initialState, action) {
     case 'ADD': // Exemple pour ajouter une valeur
       nextState = {
         ...state,
-        platFavoris: [...state.platFavoris, action.value]
+        filmFavoris: [...state.filmFavoris, action.value]
       };
-      console.log(nextState.platFavoris)
+      console.log(nextState.filmFavoris)
       return nextState || state
     case 'REMOVE': // Exemple pour supprimer une valeur
       nextState = {
         ...state,
-        platFavoris: state.platFavoris.filter(id => id !== action.value )
+        filmFavoris: state.filmFavoris.filter(id => id !== action.value )
       };
-      console.log(nextState.platFavoris)
+      console.log(nextState.filmFavoris)
       return nextState || state
     case 'ACTIONNAME':
         // Code here

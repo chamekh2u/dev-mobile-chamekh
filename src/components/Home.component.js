@@ -8,6 +8,7 @@ import ppage1 from '../helpers/PopularMovies_page1';
 import ppage2 from '../helpers/PopularMovies_page2';
 import spage1 from '../helpers/SearchMovies_page1';
 import spage2 from '../helpers/SearchMovies_page2';
+import {connect} from 'react-redux';
 
 /* const data = new Array(8).fill({
 
@@ -16,7 +17,7 @@ import spage2 from '../helpers/SearchMovies_page2';
   }); */
 
 
-export const HomeScreen = ({ navigation }) => {
+ const HomeScreen = ({ navigation, favorisList, dispatch }) => {
 
   const getPopularMovies1 = ppage1;
   const getPopularMovies2 = ppage2;
@@ -79,15 +80,21 @@ export const HomeScreen = ({ navigation }) => {
     );
   }
 
-  /* const updateFavoris = (id) => {
+   const updateFavoris = (id) => {
     let action;
     action = favorisList.findIndex(i => (i === id)) !== -1 ? { type: 'REMOVE', value: id } : { type: 'ADD', value: id }
     dispatch(action);
  
-  } */
-  const renderItemAccessory = (id) => (
+  } 
 
+  
+
+  
+  const renderItemAccessory = (id) => (
+    <View>
     <Button size='tiny' onPress={ () => navigateDetails(id) }  >Details</Button>
+    <Button size='tiny' onPress={()=> updateFavoris(id)} >{(favorisList.findIndex(i => (i === id)) !== -1) ? 'déja vu': 'Pas vu'}</Button>
+    </View>
   );
   const _loadMoreMovies = () => {
     console.log(...getPopularMovies2)
@@ -129,3 +136,11 @@ export const HomeScreen = ({ navigation }) => {
     </View>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+      favorisList: state.filmFavoris
+  }
+}
+
+export default connect(mapStateToProps)(HomeScreen);

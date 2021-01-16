@@ -29,9 +29,9 @@ export const HomeScreen = ({ navigation }) => {
   const [isSearch, setIsSearch] = useState(false);
 
 
-  const navigateDetails = () => {
+  const navigateDetails = (id) => {
     const test = "test Route param"
-    navigation.navigate('Details', { test });
+    navigation.navigate('Details', { id });
   };
 
   const searchMovies = () => {
@@ -73,7 +73,6 @@ export const HomeScreen = ({ navigation }) => {
       <ListItem
         title={`${item.original_title} ${item.release_date}`}
         description={`${item.overview}`.substring(0, 100) + '...'}
-        number
         accessoryLeft={() => renderImage(item.poster_path)}
         accessoryRight={() => renderItemAccessory(item.id)}
       />
@@ -88,7 +87,7 @@ export const HomeScreen = ({ navigation }) => {
   } */
   const renderItemAccessory = (id) => (
 
-    <Button size='tiny' /*onPress={ () => updateFavoris(id) }*/>{/* favorisList.findIndex(i => (i === id)) !== -1 ? "remove from favoris" : "add to favoris" */}</Button>
+    <Button size='tiny' onPress={ () => navigateDetails(id) }  >Details</Button>
   );
   const _loadMoreMovies = () => {
     console.log(...getPopularMovies2)

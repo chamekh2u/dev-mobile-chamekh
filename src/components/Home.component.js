@@ -6,6 +6,8 @@ import { fakeItems } from '../helpers/fakeItems';
 import { useState } from 'react/cjs/react.development';
 import ppage1 from '../helpers/PopularMovies_page1';
 import ppage2 from '../helpers/PopularMovies_page2';
+import spage1 from '../helpers/SearchMovies_page1';
+import spage2 from '../helpers/SearchMovies_page2';
 
 /* const data = new Array(8).fill({
 
@@ -18,22 +20,38 @@ export const HomeScreen = ({ navigation }) => {
 
   const getPopularMovies1 = ppage1;
   const getPopularMovies2 = ppage2;
+  const getSearchMovies1 = spage1;
+  const getSearchMovies2 = spage2;
 
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState(getPopularMovies1);
   const [isEnd, setIsEnd] = useState(false);
- 
+  const [isSearch, setIsSearch] = useState(false);
+
 
   const navigateDetails = () => {
     const test = "test Route param"
     navigation.navigate('Details', { test });
   };
 
-  const displayPage1 = () => {
+  const searchMovies = () => {
+    if (search !== '') {
+      setIsSearch(true);
+      setMovies([...getSearchMovies1]);
+      setIsEnd(false);
+    }
+
 
   }
+
+  const cancelSearch = () => {
+    setIsSearch(false);
+    setSearch('');
+    setIsEnd(false);
+    setMovies(getPopularMovies1);
+  }
   const renderIconSearch = (props) => (
-    <TouchableWithoutFeedback onPress={displayPage1}>
+    <TouchableWithoutFeedback onPress={searchMovies}>
       <Icon {...props} name='search' />
     </TouchableWithoutFeedback>
   );
@@ -75,13 +93,17 @@ export const HomeScreen = ({ navigation }) => {
   const _loadMoreMovies = () => {
     console.log(...getPopularMovies2)
     if (!isEnd) {
-      setMovies([...movies, ...getPopularMovies2]);
+      if (!isSearch)
+        setMovies([...movies, ...getPopularMovies2]);
+      else
+        setMovies([...movies, ...getSearchMovies2]);
+
       setIsEnd(true);
     }
 
   }
 
-  
+
 
   return (
     <View style={{ flex: 1 }}>
@@ -95,14 +117,14 @@ export const HomeScreen = ({ navigation }) => {
           accessoryRight={renderIconSearch}
 
         />
-        <Button onPress={navigateDetails}>OPEN DETAILs</Button>
+        <Button onPress={cancelSearch}>Annuler la recherche</Button>
         <List
           style={{ flex: 1, marginTop: 30 }}
           data={movies}
           renderItem={renderItem}
           onEndReached={_loadMoreMovies}
           onEndReachedThreshold={0.5}
-         
+
         />
       </Layout>
     </View>

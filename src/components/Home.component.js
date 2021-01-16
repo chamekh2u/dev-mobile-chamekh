@@ -22,6 +22,7 @@ export const HomeScreen = ({ navigation }) => {
   const [search, setSearch] = useState('');
   const [movies, setMovies] = useState(getPopularMovies1);
   const [isEnd, setIsEnd] = useState(false);
+ 
 
   const navigateDetails = () => {
     const test = "test Route param"
@@ -29,7 +30,7 @@ export const HomeScreen = ({ navigation }) => {
   };
 
   const displayPage1 = () => {
-  
+
   }
   const renderIconSearch = (props) => (
     <TouchableWithoutFeedback onPress={displayPage1}>
@@ -59,26 +60,28 @@ export const HomeScreen = ({ navigation }) => {
         accessoryRight={() => renderItemAccessory(item.id)}
       />
     );
+  }
+
+  /* const updateFavoris = (id) => {
+    let action;
+    action = favorisList.findIndex(i => (i === id)) !== -1 ? { type: 'REMOVE', value: id } : { type: 'ADD', value: id }
+    dispatch(action);
+ 
+  } */
+  const renderItemAccessory = (id) => (
+
+    <Button size='tiny' /*onPress={ () => updateFavoris(id) }*/>{/* favorisList.findIndex(i => (i === id)) !== -1 ? "remove from favoris" : "add to favoris" */}</Button>
+  );
+  const _loadMoreMovies = () => {
+    console.log(...getPopularMovies2)
+    if (!isEnd) {
+      setMovies([...movies, ...getPopularMovies2]);
+      setIsEnd(true);
     }
 
-    /* const updateFavoris = (id) => {
-      let action;
-      action = favorisList.findIndex(i => (i === id)) !== -1 ? { type: 'REMOVE', value: id } : { type: 'ADD', value: id }
-      dispatch(action);
+  }
+
   
-    } */
-    const renderItemAccessory = (id) => (
-  
-      <Button size='tiny' /*onPress={ () => updateFavoris(id) }*/>{/* favorisList.findIndex(i => (i === id)) !== -1 ? "remove from favoris" : "add to favoris" */}</Button>
-    );
-    const _loadMoreMovies = () => {
-      console.log(...getPopularMovies2)
-      if(!isEnd){
-        setMovies([...movies, ...getPopularMovies2 ]);
-        setIsEnd(true);
-      }
-      
-    }
 
   return (
     <View style={{ flex: 1 }}>
@@ -93,12 +96,13 @@ export const HomeScreen = ({ navigation }) => {
 
         />
         <Button onPress={navigateDetails}>OPEN DETAILs</Button>
-         <List
+        <List
           style={{ flex: 1, marginTop: 30 }}
           data={movies}
           renderItem={renderItem}
-          onEndReached={ _loadMoreMovies }
-          onEndReachedThreshold={ 0.5 }
+          onEndReached={_loadMoreMovies}
+          onEndReachedThreshold={0.5}
+         
         />
       </Layout>
     </View>

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Button, Icon, List, ListItem, Avatar  } from '@ui-kitten/components';
+import { Button, Icon, List, ListItem, Avatar } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -24,33 +24,33 @@ const ListTest = ({ data, isFavorisList, dispatch, favorisList }) => {
 
 
 
-  const renderImage = (path) =>  {
-  console.log('https://image.tmdb.org/t/p/w50'+path)
-return     (
+  const renderImage = (path) => {
+    console.log('https://image.tmdb.org/t/p/w50' + path)
+    return (
       <Avatar
-     
-      
-      source={{uri:'https://image.tmdb.org/t/p/w500'+path}}
-    />
+
+
+        source={{ uri: 'https://image.tmdb.org/t/p/w500' + path }}
+      />
     );
-  
+
   }
 
-   
+
   const renderItem = ({ item, index }) => {
     //if (isFavorisList) {
     //  if (!isFavorisList || (isFavorisList &&favorisList.findIndex(i => (i === item.id)) !== -1))
-        return (
-          <ListItem
-            title={`${item.original_title} ${item.release_date}`}
-            description={`${item.overview}`.substring(0,100) +'...'}
-            number
-            accessoryLeft={() => renderImage(item.poster_path)}
-            accessoryRight={() => renderItemAccessory(item.id)}
-          />
-        );
-   // }
-    
+    return (
+      <ListItem
+        title={`${item.original_title} ${item.release_date}`}
+        description={`${item.overview}`.substring(0, 100) + '...'}
+        number
+        accessoryLeft={() => renderImage(item.poster_path)}
+        accessoryRight={() => renderItemAccessory(item.id)}
+      />
+    );
+    // }
+
 
   }
 
